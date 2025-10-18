@@ -9,11 +9,12 @@ public class Moving : MonoBehaviour
     private Rigidbody2D rb;
     public int speed = 5;
     public string nextLevel = "Scene_2";
-
+    public SpriteRenderer ColorChanger;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        ColorChanger = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -21,7 +22,20 @@ public class Moving : MonoBehaviour
     {
         float xInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(xInput * speed, rb.velocity.y);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ColorChanger.color = Color.cyan;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ColorChanger.color = Color.gray;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ColorChanger.color = Color.yellow;
+        }
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.tag)
