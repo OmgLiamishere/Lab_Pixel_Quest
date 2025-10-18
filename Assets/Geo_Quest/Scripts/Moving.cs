@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Moving : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public int speed = 5;
+    public string nextLevel = "Scene_2";
 
     // Start is called before the first frame update
     void Start()
@@ -17,9 +20,26 @@ public class Moving : MonoBehaviour
     void Update()
     {
         float xInput = Input.GetAxis("Horizontal");
-        rb
+        rb.velocity = new Vector2(xInput * speed, rb.velocity.y);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        switch (collision.tag)
+        {
+            case "Death":
+                {
+                    string thisLevel = SceneManager.GetActiveScene().name;
+                    SceneManager.LoadScene(thisLevel);
+                    break;
+                }
+            case "Finish":
+                {
+                    SceneManager.LoadScene(nextLevel);
+                    break;
+                }
+        }
+    }
+} /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             rb.velocity = new Vector2(-1, rb.velocity.y);
@@ -28,6 +48,7 @@ public class Moving : MonoBehaviour
         {
             rb.velocity = new Vector2(1, rb.velocity.y);
         }
+*/
     /*
        // transform.position += new Vector3(0.005f, 0, 0);
        if (Input.GetKeyDown(KeyCode.W))
@@ -47,5 +68,3 @@ public class Moving : MonoBehaviour
             transform.position += new Vector3(1, 0, 0);
         }
        */
-    }
-}
