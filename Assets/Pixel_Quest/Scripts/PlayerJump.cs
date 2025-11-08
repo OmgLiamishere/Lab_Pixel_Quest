@@ -36,7 +36,7 @@ public class PlayerJump : MonoBehaviour
     {
         // Checks if player is touching the ground
         _groundCheck = Physics2D.OverlapCapsule(feetCollider.position,
-            new Vector2(CapsuleHeight, CapsuleRadius), CapsuleDirection2D.Horizontal,
+            new Vector2(CapsuleHeight, CapsuleRadius), CapsuleDirection2D.Horizontal, 0,
             groundMask);
 
         // Checks if player is trying to jump/can jump
@@ -49,12 +49,12 @@ public class PlayerJump : MonoBehaviour
         }
     }
     private bool watercheck = false;
-    private string watertag = "water";
+    private string Watertag = "water";
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(watertag))
+        if (collision.gameObject.CompareTag(Watertag))
         {
             watercheck = true;
         }
@@ -63,7 +63,7 @@ public class PlayerJump : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(watertag))
+        if (collision.gameObject.CompareTag(Watertag))
         {
             watercheck = false;
         }
