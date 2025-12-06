@@ -39,4 +39,17 @@ public class Enemymovement : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // If it touches the bullet, it updates 
+        if (collision.gameObject.tag == "Bullet")
+        {
+            //Updates the Score 
+            //Destorys the bullet
+            Destroy(collision.gameObject);
+            //Destorys the enemy 
+            Destroy(transform.parent.gameObject);
+        }
+    }
 }
